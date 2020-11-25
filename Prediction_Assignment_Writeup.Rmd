@@ -23,8 +23,8 @@ The initial configuration consists of loading some required packages and initial
 ```{r configuration, echo=TRUE, results='hide'}
 #Data variables
 training.file   <- './data/pml-training.csv'
-test.cases.file <- './data/pml-testing.csv'
 training.url    <- 'http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv'
+test.cases.file <- './data/pml-testing.csv'
 test.cases.url  <- 'http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv'
 #Directories
 if (!file.exists("data")){
@@ -39,11 +39,6 @@ if(!IscaretInstalled){
     install.packages("caret")
     library("caret")
     }
-IsrandomForestInstalled <- require("randomForest")
-if(!IsrandomForestInstalled){
-    install.packages("randomForest")
-    library("randomForest")
-    }
 IsRpartInstalled <- require("rpart")
 if(!IsRpartInstalled){
     install.packages("rpart")
@@ -53,6 +48,11 @@ IsRpartPlotInstalled <- require("rpart.plot")
 if(!IsRpartPlotInstalled){
     install.packages("rpart.plot")
     library("rpart.plot")
+    }
+IsrandomForestInstalled <- require("randomForest")
+if(!IsrandomForestInstalled){
+    install.packages("randomForest")
+    library("randomForest")
     }
 # Set seed for reproducability
 set.seed(9999)
