@@ -28,36 +28,16 @@ training.file   <- './data/pml-training.csv'
 training.url    <- 'https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv'
 test.file <- './data/pml-testing.csv'
 test.url  <- 'https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv'
-#Directories
-if (!file.exists("data")){
-  dir.create("data")
-}
-if (!file.exists("data/submission")){
-  dir.create("data/submission")
-}
-#R-Packages
-IscaretInstalled <- require("caret")
-if(!IscaretInstalled){
-    install.packages("caret")
-    library("caret")
-    }
-IsRpartInstalled <- require("rpart")
-if(!IsRpartInstalled){
-    install.packages("rpart")
-    library("rpart")
-    }
-IsRpartPlotInstalled <- require("rpart.plot")
-if(!IsRpartPlotInstalled){
-    install.packages("rpart.plot")
-    library("rpart.plot")
-    }
-IsrandomForestInstalled <- require("randomForest")
-if(!IsrandomForestInstalled){
-    install.packages("randomForest")
-    library("randomForest")
-    }
-# Set seed for reproducability
-set.seed(9999)
+
+#R Libraries
+library(dplyr) #transforming data
+library(ggplot2) #plotting
+library(ggcorrplot) #plotting correlation matrix
+library(caret) #machine learning
+library(rattle) #plotting trees
+
+# Seed for reproducability
+set.seed(99)
 ```
 ## Data processing
 In this section the data is downloaded and processed. Some basic transformations and cleanup will be performed, so that `NA` values are omitted. Removal of irrelevant columns such as `user_name`, `raw_timestamp_part_1`, `raw_timestamp_part_2`, `cvtd_timestamp`, `new_window`, and  `num_window` (columns 1 to 7)
@@ -67,8 +47,8 @@ The `pml-test.csv` data is used to predict and answer the 20 questions based on 
 
 ```{r dataprocessing, echo=TRUE, results='hide'}
 # Download data
-#download.file(training.url, training.file)
-#download.file(test.url,test.file )
+download.file(training.url, training.file)
+download.file(test.url,test.file )
 # Clean data
 training   <-na.omit(read.csv(training.file))
 testing <-na.omit(read.csv(test.file))
